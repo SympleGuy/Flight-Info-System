@@ -1,2 +1,2 @@
-# Flight-Info-System
- Java GUI Flight System
+# flightapp.model.Flight-Info-System
+ Java GUI flightapp.model.Flight System
