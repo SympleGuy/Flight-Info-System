@@ -22,7 +22,7 @@ public class Flight {
     //Constructor
 
 
-    public Flight(String airlineName, String flightNumber, String flightOrigin, String flightDestination, double airfare, LocalDateTime departureTime, LocalDateTime arrivalTime, String duration, int availableSeat, double distance) {
+    public Flight(String airlineName, String flightNumber, String flightOrigin, String flightDestination, double airfare, LocalDateTime departureTime, LocalDateTime arrivalTime, int availableSeat, double distance) {
         //Constructor call setter method to initialize the instance variables, each setter method contains the validation
         //Avoid code Duplication
 
@@ -185,7 +185,7 @@ public class Flight {
         }
         this.arrivalTime = arrivalTime;
         //Update duration
-        setDuration(calDuration(this.arrivalTime, this.departureTime));
+        setDuration(calDuration(this.departureTime, this.arrivalTime));
     }
 
     //No need calculation (Already call inside setArrivalTime)

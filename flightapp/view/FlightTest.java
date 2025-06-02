@@ -1,4 +1,4 @@
-package flightapp.model;
+package flightapp.view;
 import java.util.Scanner;
 
 public class FlightTest {
