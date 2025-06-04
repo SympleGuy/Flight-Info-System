@@ -165,7 +165,7 @@ public class Flight {
             }
         }
         this.departureTime = departureTime;
-        //In case you want to update depatureTime outside CLI, need to add this line
+        //In case you want to update departureTime outside CLI, need to add this line
         // Update duration
         //setDuration(calDuration(this.departureTime, this.arrivalTime));
     }
@@ -185,7 +185,7 @@ public class Flight {
         }
         this.arrivalTime = arrivalTime;
         //Update duration
-        setDuration(calDuration(this.departureTime, this.arrivalTime));
+        setDuration(calDuration(this.arrivalTime, this.departureTime));
     }
 
     //No need calculation (Already call inside setArrivalTime)
