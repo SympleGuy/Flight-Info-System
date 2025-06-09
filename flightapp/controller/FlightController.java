@@ -52,10 +52,4 @@ public class FlightController {
 
         return sortedFlights;
     }
-
-
-
-
-
-
 }

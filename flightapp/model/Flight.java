@@ -24,7 +24,7 @@ public class Flight {
 
     public Flight(String airlineName, String flightNumber, String flightOrigin, String flightDestination, double airfare, LocalDateTime departureTime, LocalDateTime arrivalTime, int availableSeat, double distance) {
         //Constructor call setter method to initialize the instance variables, each setter method contains the validation
-        //Avoid code Duplication
+        //Avoid code duplication
 
         setAirlineName(airlineName);
         setFlightNumber(flightNumber);
@@ -37,11 +37,6 @@ public class Flight {
 
         setAvailableSeat(availableSeat);
         setDistance(distance);
-    }
-
-    public Flight(String airlineName, String flightNumber) {
-        this.airlineName = airlineName;
-        this.flightNumber = flightNumber;
     }
 
     //Getter
@@ -167,7 +162,7 @@ public class Flight {
         this.departureTime = departureTime;
         //In case you want to update departureTime outside CLI, need to add this line
         // Update duration
-        //setDuration(calDuration(this.departureTime, this.arrivalTime));
+        setDuration(calDuration(this.departureTime, this.arrivalTime));
     }
 
     public void setArrivalTime(LocalDateTime arrivalTime) {
@@ -185,7 +180,7 @@ public class Flight {
         }
         this.arrivalTime = arrivalTime;
         //Update duration
-        setDuration(calDuration(this.arrivalTime, this.departureTime));
+        setDuration(calDuration(this.departureTime, this.arrivalTime));
     }
 
     //No need calculation (Already call inside setArrivalTime)
@@ -222,9 +217,9 @@ public class Flight {
                 ", Flight Number='" + flightNumber + '\'' +
                 ", Origin='" + flightOrigin + '\'' +
                 ", Destination='" + flightDestination + '\'' +
-                ", Airfare=" + String.format("%.2f", airfare) + '\'' +
-                ", Departure Time=" + formattedDepartureTime + '\'' +
-                ", Arrival Time=" + formattedArrivalTime + '\'' +
+                ", Airfare='" + String.format("%.2f$", airfare) + '\'' +
+                ", Departure Time='" + formattedDepartureTime + '\'' +
+                ", Arrival Time='" + formattedArrivalTime + '\'' +
                 ", Duration='" + getDuration() + '\'' +
                 ", Available Seat=" + availableSeat +
                 ", Distance=" + distance +
