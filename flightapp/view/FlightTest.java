@@ -2,6 +2,7 @@ package flightapp.view;
 
 import flightapp.controller.FlightController;
 import flightapp.model.Flight;
+import flightapp.utils.ValidationUtils;
 
 import java.time.DateTimeException;
 import java.time.LocalDateTime;
@@ -54,17 +55,49 @@ public class FlightTest {
         while(flight == null){
             try{
                 //Read flight name
-                System.out.print("Name of the airline: ");
-                String airlineName = scanner.nextLine();
+                String airlineName;
+                while(true){
+                    try {
+                        System.out.println("Name of the airline: ");
+                        airlineName = ValidationUtils.validateString(scanner.nextLine(),"Airline Name");
+                        break; //Exit loop if valid
+                    } catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 //Read flight number
-                System.out.print("Flight number: ");
-                String flightNumber = scanner.nextLine();
+                String flightNumber;
+                while(true){
+                    try {
+                        System.out.println("Flight number: ");
+                        flightNumber = ValidationUtils.validateFlightNumber(scanner.nextLine());
+                        break;
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 //Read flight origin
-                System.out.print("Origin: ");
-                String origin = scanner.nextLine();
+                String origin;
+                while(true){
+                    try {
+                        System.out.println("Origin: ");
+                        origin = ValidationUtils.validateString(scanner.nextLine(),"Origin");
+                        break;
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
                 //Read flight destination
-                System.out.print("Destination: ");
-                String destination = scanner.nextLine();
+                String destination;
+                while(true){
+                    try {
+                        System.out.println("Destination: ");
+                        destination = ValidationUtils.validateString(scanner.nextLine(),"Destination");
+                        break;
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
+                    }
+                }
 
 
                 LocalDateTime departureTime = null;
@@ -94,51 +127,54 @@ public class FlightTest {
                 }
 
                 //Loop until a valid double is entered
-                double airfare = 0;
+                double airfare;
                 while (true){
-                    try{
-                        System.out.print("Airfare: ");
-                        airfare = Double.parseDouble(scanner.nextLine());
-                        if (airfare > 0) {
-                            break; // Exit loop if the value is valid
-                        } else {
-                            // Provide specific feedback for invalid value
-                            System.out.println("INVALID: Airfare must be greater than 0. Please try again.");
-                        }
-                    } catch (NumberFormatException e){
-                        //Handle an invalid number format
-                        System.out.println("INVALID: Airfare must be a number. Please try again.");
+                    try {
+                        System.out.println("Airfare: ");
+                        double parsedValue = Double.parseDouble(scanner.nextLine());
+                        airfare = ValidationUtils.validatePositive(parsedValue, "Airfare");
+                        break;
+                    }catch (NumberFormatException e){
+                        System.out.println("INVALID: Airfare must be a number.");
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
                     }
                 }
 
-                int availableSeat = 0;
                 //Loop until a valid number of seats is entered
+                int availableSeat;
                 while (true){
-                    try{
-                        System.out.print("Available seat: ");
-                        availableSeat = Integer.parseInt(scanner.nextLine());
+                    try {
+                        System.out.println("Available Seat: ");
+                        int parsedSeat = Integer.parseInt(scanner.nextLine());
+                        availableSeat = ValidationUtils.validatePositive(parsedSeat, "AvailableSeat");
                         break;
-                    } catch (NumberFormatException e){
-                        System.out.println("INVALID: Number of seat must be an Integer. Please try again.");
+                    }catch (NumberFormatException e){
+                        System.out.println("INVALID: Available Seat must be a number.");
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
                     }
                 }
 
-                double distance = 0;
                 //Loop until a valid double is entered
+                double distance = 0;
                 while (true){
-                    try{
-                        System.out.print("Distance: ");
-                        distance = Double.parseDouble(scanner.nextLine());
+                    try {
+                        System.out.println("Distance: ");
+                        double parsedDistance = Double.parseDouble(scanner.nextLine());
+                        distance = ValidationUtils.validatePositive(parsedDistance, "Distance");
                         break;
-                    } catch (NumberFormatException e){
-                        System.out.println("INVALID: Distance must be a number. Please try again.");
+                    }catch (NumberFormatException e){
+                        System.out.println("INVALID: Distance must be a number.");
+                    }catch (IllegalArgumentException e){
+                        System.out.println(e.getMessage());
                     }
                 }
                 //Create a new flight object
                 //Using FlightController to add flight to an ArrayList of flights (easy to manage data)
                 flight = new Flight(airlineName,flightNumber,origin,destination,airfare,departureTime,arrivalTime,availableSeat,distance);
                 controller.addFlight(flight);
-                System.out.print("Flight added successfully.\n");
+                System.out.println("Flight added successfully.");
 
             } catch (IllegalArgumentException e){
                 //Catch validation error
