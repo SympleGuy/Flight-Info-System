@@ -30,7 +30,7 @@ public class FlightController {
         return sortedFlights;
     }
 
-    public List<Flight> sortedByOthers(String sortByAttribute) {
+    public List<Flight> sortedByOthers(String sortByAttribute, boolean ascending) {
         List<Flight> sortedFlights = new ArrayList<>(this.flights);
 
         Comparator<Flight> comparator = null;
@@ -45,10 +45,26 @@ public class FlightController {
             case "arrivaltime":
                 comparator = Comparator.comparing(Flight::getArrivalTime);
                 break;
+            case "origin":
+                comparator = Comparator.comparing(Flight::getFlightOrigin);
+                break;
+            case "destination":
+                comparator = Comparator.comparing(Flight::getFlightDestination);
+                break;
+            case "airline":
+                comparator = Comparator.comparing(Flight::getAirlineName);
+                break;
             case "flightnumber":
             default:
                 comparator = Comparator.comparing(Flight::getFlightNumber);
+                break;
         }
+
+        //default is ascending(true), if false reversed array
+        if (!ascending) {
+            comparator = comparator.reversed();
+        }
+        sortedFlights.sort(comparator);
 
         return sortedFlights;
     }

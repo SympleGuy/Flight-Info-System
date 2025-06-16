@@ -11,14 +11,14 @@ import java.util.Scanner;
 import java.time.format.DateTimeFormatter;
 
 public class FlightTest {
-    // Create static instance of controller
-    private final static FlightController controller = new FlightController();
+
+
     //Create static instance of Scanner
     private final static Scanner scanner = new Scanner(System.in);
 
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
 
-    public static void consoleApp() {
+    public static void consoleApp(FlightController controller) {
         System.out.println("-----------------------WELCOME TO AIRQUEST--------------------");
 
         //Prompt user to enter the number of flights
@@ -37,42 +37,72 @@ public class FlightTest {
 
         for (int i = 0; i < numberOfFlights; i++) {
             System.out.printf("------------Flight %d------------------\n", i + 1); //Prompt for each flight
-            flightMenu();
+            flightMenu(controller);
         }
 
-        int selection = 0;
-        try{
-            switch (selection) {
-                case 1:
-                    System.out.println("1. Sorted by Airfare");
-                    selection = Integer.parseInt(scanner.nextLine());
-                    break;
-                case 2:
-                    System.out.println("2. Sorted by Departure Time");
-                    selection = Integer.parseInt(scanner.nextLine());
-                    break;
-                case 3:
-                    System.out.println("3. Sorted by Arrival Time");
-                    selection = Integer.parseInt(scanner.nextLine());
-                    break;
-                default:
-
-            }
-
-        }catch(NumberFormatException e){
-            System.out.println("Invalid selection.");
-        }
-
-        //Display flight details before sorting
-        System.out.println("\nBefore sorting:");
-        displayFlights(controller.getFlights());
-
-        //Display flight details after sorting
-        System.out.println("\nAfter sorting:");
-        displayFlights(controller.sortedByFlightNumber());
+        //ONLY FOR TESTING OUTPUT
+//        //Display flight details before sorting
+//        System.out.println("\nBefore Sorting:");
+//        displayFlights(controller.getFlights());
+//
+//        //Sorting menu
+//        //Display flight details after sorting
+//        sortingMenu(controller);
     }
 
-    public static void flightMenu(){
+    public static void sortingMenu(FlightController controller) {
+        while (true) {
+            System.out.println("Please choose a sorting option:");
+            System.out.println("1. Sort by Flight Number");
+            System.out.println("2. Sort by Airline Name");
+            System.out.println("3. Sort by Destination City");
+            System.out.println("4. Sort by Departure Time");
+            System.out.println("5. Sort by Airfare");
+            System.out.println("0. Exit Sorting Menu");
+            System.out.print("Your choice: ");
+
+            int choice;
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            }catch (NumberFormatException e){
+                System.out.println("Invalid input. Please enter a number.");
+                continue;//Go into loop again
+            }
+
+            List<Flight> sortedList = null;
+            String sortOption = "";
+            switch (choice) {
+                case 1:
+                    sortOption = "flightnumber";
+                    break;
+                case 2:
+                    sortOption = "airline";
+                    break;
+                case 3:
+                    sortOption = "destination";
+                    break;
+                case 4:
+                    sortOption = "origin";
+                    break;
+                case 5:
+                    sortOption = "airfare";
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Invalid input");
+                    continue;
+            }
+
+            System.out.println("\nSorted by " + sortOption);
+            sortedList = controller.sortedByOthers(sortOption,true);
+            displayFlights(sortedList);
+        }
+
+
+    }
+
+    public static void flightMenu(FlightController controller) {
         Flight flight = null;
 
         while(flight == null){
