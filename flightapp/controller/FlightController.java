@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 public class FlightController {
     //Create variable
-    private List<Flight> flights;
+    private final List<Flight> flights;
 
     //Constructor
     public FlightController() {

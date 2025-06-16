@@ -40,6 +40,29 @@ public class FlightTest {
             flightMenu();
         }
 
+        int selection = 0;
+        try{
+            switch (selection) {
+                case 1:
+                    System.out.println("1. Sorted by Airfare");
+                    selection = Integer.parseInt(scanner.nextLine());
+                    break;
+                case 2:
+                    System.out.println("2. Sorted by Departure Time");
+                    selection = Integer.parseInt(scanner.nextLine());
+                    break;
+                case 3:
+                    System.out.println("3. Sorted by Arrival Time");
+                    selection = Integer.parseInt(scanner.nextLine());
+                    break;
+                default:
+
+            }
+
+        }catch(NumberFormatException e){
+            System.out.println("Invalid selection.");
+        }
+
         //Display flight details before sorting
         System.out.println("\nBefore sorting:");
         displayFlights(controller.getFlights());

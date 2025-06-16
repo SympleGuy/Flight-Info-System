@@ -14,6 +14,7 @@ public final class ValidationUtils {
         if(name == null || name.trim().isEmpty()){
             throw new IllegalArgumentException(fieldName + " cannot be empty.");
         }
+        //Regex
         if(!Pattern.matches("^[a-zA-Z ]+$", name)){
             throw new IllegalArgumentException("INVALID: " + fieldName + " must only contain letters and spaces.");
         }
@@ -25,6 +26,7 @@ public final class ValidationUtils {
         if (flightNumber == null || flightNumber.trim().isEmpty()){
             throw new IllegalArgumentException("Flight number cannot be empty.");
         }
+        //Regex
         if (!Pattern.matches("^[a-zA-Z0-9]+$", flightNumber)){
             throw new IllegalArgumentException("INVALID: Flight number must only contain letters and numbers.");
         }
